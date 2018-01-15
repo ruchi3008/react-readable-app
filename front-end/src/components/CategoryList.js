@@ -13,7 +13,7 @@ class CategoryList extends Component {
         {
           this.props && this.props.categories && this.props.categories.map((category)=>(
             <li key={category.name}>
-              <Link to={`/category/${category.name}`} >{category.name}{category.path}</Link>
+              <Link to={`/category/${category.name}`} >{category.name}</Link>
             </li>
           ))
         }
