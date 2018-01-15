@@ -8,7 +8,7 @@ class PostsHomePage extends Component {
     sortParam:"voteScore"
   }
   sortAction=(sortParam) => {
-    console.log(sortParam);
+
     this.setState({sortParam})
   }
 
@@ -26,28 +26,28 @@ class PostsHomePage extends Component {
 
     let comparison = 0;
     if (varA > varB) {
-      console.log("a>b")
+
       comparison = 1;
     } else if (varA < varB) {
-      console.log("b>a")
+
       comparison = -1;
     }
-    console.log("sorted the array");
+
 
      if (order ==='desc')
       {
-        console.log("returning -1");
+
         return comparison * -1
       }
       else {
-        console.log("returning 1");
+
         return comparison
       }
   };
 }
 
   render(){
-    console.log("Rendering");
+
     return (
       <div>
       <div className="text-right">
@@ -66,7 +66,7 @@ class PostsHomePage extends Component {
   }
 }
 const mapStateToProps = (state,props) => {
-  console.log("mapStateToProps" + state.postReducer);
+
   return {
     posts:state.postReducer.posts
   }

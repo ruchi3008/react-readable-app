@@ -8,10 +8,10 @@ class PostForm extends Component{
      messagetext:''
    }
   submitPost = () => {
-    //console.log("Inside SubmitPosthome" + this.title.value + this.category.value);
-    console.log("Inside SubmitPostcategory" + this.props.category );
+
+
     if(this.props.mode!==undefined && this.props.mode==='Update'){
-      console.log('Updating' + this.props.post.id);
+
       this.props.submitPost(this.title.value,this.text.value,this.props.post.category,this.props.post.id);
       this.setState({
         messagetext:'Post Updated'
@@ -83,7 +83,7 @@ class PostForm extends Component{
   }
 }
 const mapStateToProps = (state,props) => {
-  console.log("mapStateToProps" + state.postReducer + state.categoryReducer.categories);
+
   return {
     categories:state.categoryReducer.categories
   }

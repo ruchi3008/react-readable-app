@@ -21,7 +21,6 @@ export const fetchAllPosts = () => (dispatch) => {
   return PostAPI
   .fetchAllPosts()
   .then((posts) => {
-     console.log("Posts in actions"+ posts)
      dispatch(receiveAllPosts(posts))
    })
 }
@@ -52,11 +51,9 @@ export const receivePostDetails = (post) => (
 )
 
 export const fetchPostDetails = (id) => (dispatch) => {
-  console.log("1. fetchPostDetails  in action"+ id);
   return PostAPI
   .fetchPostDetails(id)
   .then((post) => {
-     console.log("Post in action"+ post.id)
      dispatch(receivePostDetails(post))
    })
 }
@@ -77,20 +74,17 @@ export const receivePostsAfterUpdate= (post) => (
 )
 
 export const submitPost = (postTitle,postText,postCategory,postId) => (dispatch) => {
-  console.log("1. submitPost  in action"+ postId + postTitle);
-  console.log(postId );
+
   if(postId!==''){
     return PostAPI
     .updatePost(postId,postTitle,postText)
     .then((post) => {
-       console.log("Posts in action :Updating a post"+ post.id + post.body)
        dispatch(receivePostsAfterUpdate(post))
      })
   }else{
     return PostAPI
     .submitNewPost(postTitle,postText,postCategory)
     .then((post) => {
-       console.log("Posts in action :submitNewPost"+ post.id)
        dispatch(receivePostsAfterNew(post))
      })
   }
@@ -106,11 +100,11 @@ export const receiveVotePosts= (post) => (
 )
 
 export const votePost = (postId,voteType) => (dispatch) => {
-  console.log("1. votePost  in action"+ postId);
+
   return PostAPI
   .votePost(postId,voteType)
   .then((post) => {
-     console.log("Posts in action:votePost"+ post)
+
      dispatch(receiveVotePosts(post))
    })
 }
@@ -123,11 +117,9 @@ export const receivePostAfterDelete= (post) => (
 )
 
 export const deletePost = (postId) => (dispatch) => {
-  console.log("1. deletePost  in action"+ postId);
   return PostAPI
   .deletePost(postId)
   .then((post) => {
-     console.log("Posts in action:deletePost"+ post)
      dispatch(receivePostAfterDelete(post))
    })
 }

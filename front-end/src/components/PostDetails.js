@@ -18,7 +18,6 @@ class PostDetails extends Component{
     commentMsgText:''
   }
   openPostModal = (post) => {
-    console.log(post.category)
     this.setState({
       editPost:post,
       postModal:true
@@ -32,7 +31,6 @@ class PostDetails extends Component{
   }
 
   votePost = (postId,voteType) => {
-    console.log("votePost"+postId + voteType);
     this.props.votePost(postId,voteType);
     this.setState({
       postModal:false,
@@ -54,7 +52,6 @@ class PostDetails extends Component{
       mode:mode,
       comment:comment
     })
-    console.log(comment.id + mode);
   }
 
   closeCommentModal = () => {
@@ -67,7 +64,6 @@ class PostDetails extends Component{
   }
 
   submitComment = () => {
-    console.log(this.text.value);
 
     let id = this.state.comment!==''?this.state.comment.id:''
     let messageText = this.state.comment!==''?"Comment Updated":'Comment Added';
@@ -79,7 +75,7 @@ class PostDetails extends Component{
   }
 
   voteComment = (commentId,voteType) => {
-    console.log("voteComment"+commentId + voteType);
+
     this.props.voteComment(commentId,voteType);
     this.setState({
       modal:false,
@@ -99,11 +95,11 @@ class PostDetails extends Component{
   getDate(timestamp){
     let date = new Date(timestamp);
     let formattedDate = date.format('dd.mm.yyyy hh:MM:ss');
-    console.log(formattedDate);
+
     return formattedDate;
   }
   componentDidMount(){
-    console.log("mounting compoent");
+
     this.props.fetchPostDetails(this.props.match.params.postId);
     this.props.fetchComments(this.props.match.params.postId);
   }
@@ -245,7 +241,7 @@ class PostDetails extends Component{
 }
 
 const mapStateToProps = (state,props) => {
-  console.log("mapStateToProps" + state.postReducer);
+
   return {
     post:state.postReducer.postDetails,
     comments:state.commentReducer.comments

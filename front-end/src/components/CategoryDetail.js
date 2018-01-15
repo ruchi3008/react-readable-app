@@ -20,7 +20,6 @@ class CategoryDetail extends Component {
   }
 }
 const mapStateToProps = (state,props) => {
-  console.log("mapStateToProps" + state.postReducer);
   return {
     posts:state.postReducer.posts
   }

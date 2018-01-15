@@ -168,6 +168,7 @@ app.get('/posts', (req, res) => {
 })
 
 app.post('/posts', bodyParser.json(), (req, res) => {
+
     posts.add(req.token, req.body)
       .then(
           (data) => res.send(data),
@@ -275,6 +276,7 @@ app.put('/comments/:id', bodyParser.json(), (req, res) => {
 })
 
 app.post('/comments', bodyParser.json(), (req, res) => {
+    console.log("server js"+req.body.id);
     comments.add(req.token, req.body)
       .then(
           (data) => res.send(data),

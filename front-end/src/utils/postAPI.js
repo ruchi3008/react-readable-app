@@ -9,36 +9,36 @@ export const fetchAllPosts = () => {
             const request = createGETRequest('http://localhost:3001/posts')
             return fetch(request)
             .then(response => {
-                                console.log("3.Fetched data in Api")
+
                                  return response.json();
                              }).catch(error =>{
-                                 console.log("error"+error);
+
                                  return error;
                                })
 };
 
 export const fetchPostsByCategory = (categoryName) => {
-            console.log("fetchPostsByCategory :Fetching all posts in APi");
+
             const request = createGETRequest(`http://localhost:3001/${categoryName}/posts`)
             return fetch(request)
             .then(response => {
-                                console.log("3.Fetched data in Api")
+
                                  return response.json();
                              }).catch(error =>{
-                                 console.log("error"+error);
+
                                  return error;
                                })
 };
 
 export const fetchPostDetails = (id) => {
-            console.log("fetchPostDetails :Fetching single post details");
+
             const request = createGETRequest(`http://localhost:3001/posts/${id}/`)
             return fetch(request)
             .then(response => {
-                                console.log("3.Fetched data in Api")
+
                                  return response.json();
                              }).catch(error =>{
-                                 console.log("error"+error);
+                                
                                  return error;
                                })
 };

@@ -47,29 +47,24 @@ export const receiveCommentAfterDelete= (comment) => (
 )
 
 export const fetchComments = (postId) => (dispatch) => {
-  console.log("1. fetchComments  in action"+ postId);
   return CommentAPI
   .fetchComments(postId)
   .then((comments) => {
-     console.log("Comments in action:fetchComments"+ comments)
      dispatch(receiveComments(comments))
    })
 }
 
 export const submitNewComment = (postId,commentText,commentId) => (dispatch) => {
-  console.log("1. submitNewComment  in action"+ postId + commentText+ commentId);
   if(commentId!==''){
     return CommentAPI
     .updateComment(postId,commentText,commentId)
     .then((comment) => {
-       console.log("Comments in action :Updating a comment"+ comment.id + comment.body)
        dispatch(receiveCommentsAfterUpdate(comment))
      })
   }else{
     return CommentAPI
     .submitNewComment(postId,commentText)
     .then((comment) => {
-       console.log("Comments in action :submitNewComment"+ comment.id)
        dispatch(receiveCommentsAfterNew(comment))
      })
   }
@@ -77,21 +72,17 @@ export const submitNewComment = (postId,commentText,commentId) => (dispatch) => 
 }
 
 export const voteComment = (commentId,voteType) => (dispatch) => {
-  console.log("1. voteComment  in action"+ commentId);
   return CommentAPI
   .voteComment(commentId,voteType)
   .then((comment) => {
-     console.log("Comments in action:voteComment"+ comment)
      dispatch(receiveVote(comment))
    })
 }
 
 export const deleteComment = (commentId) => (dispatch) => {
-  console.log("1. deleteComment  in action"+ commentId);
   return CommentAPI
   .deleteComment(commentId)
   .then((comment) => {
-     console.log("Comments in action:deleteComment"+ comment)
      dispatch(receiveCommentAfterDelete(comment))
    })
 }

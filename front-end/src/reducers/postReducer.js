@@ -11,7 +11,7 @@ const initialPostsState = {}
 const postReducer = (state = initialPostsState, action) => {
   switch(action.type) {
     case RECEIVE_ALL_POSTS :
-        console.log("In reducer"+ action.posts);
+
         return  {...state,posts:action.posts}
     case RECEIVE_POSTS_BY_ID :
         return  {...state,postDetails:action.post}
@@ -19,7 +19,7 @@ const postReducer = (state = initialPostsState, action) => {
         return {...state,posts:[...state.posts,action.post]}
     case RECEIVE_POSTS_AFTER_UPDATE:
         const index = state.posts.findIndex(post => post.id === action.post.id);
-        console.log(index + action.post.title);
+        
         return {
                 ...state,
                 posts:[...state.posts.slice(0,index),

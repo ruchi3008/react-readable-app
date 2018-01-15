@@ -1,7 +1,6 @@
 import React,{ Component } from 'react';
 import {Link} from 'react-router-dom';
 import PostForm from './PostForm.js';
-//import Modal from 'react-modal';
 import {ListGroup,ListGroupItem,Button,Modal} from 'react-bootstrap';
 
 class PostList extends Component {

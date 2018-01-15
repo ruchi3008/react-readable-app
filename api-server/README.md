@@ -43,3 +43,25 @@ The following endpoints are available:
 | `POST /comments/:id` | Used for voting on a comment. | **option** - [String]: Either `"upVote"` or `"downVote"`.  |
 | `PUT /comments/:id` | Edit the details of an existing comment. | **timestamp** - timestamp. Get this however you want. <br> **body** - [String] |
 | `DELETE /comments/:id` | Sets a comment's deleted flag to `true`. | &nbsp; |
+
+front-end
+
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
+
+##Project overview
+Project code comprises of the src folder-structure.
+
+src/actions
+-Contains separate action files for comment post and category realted actions.
+
+src/components
+-Contains all the components relate to the Project
+
+src/reducers
+-Contains separate reducer files for comment, post and category.
+
+src/utils
+-Contains separate files for post, comment and category related api functionalities.
+
+configureStore.js
+-File containing the store configuration. Store is created using a combined reducer and thunk middleware.
