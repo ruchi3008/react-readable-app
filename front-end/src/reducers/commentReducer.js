@@ -3,8 +3,7 @@ import { RECEIVE_COMMENTS_BY_POSTID,
         RECEIVE_COMMENTS_AFTER_UPDATE,
         RECEIVE_VOTE,
         RECEIVE_COMMENT_AFTER_DELETE
-      } from '../actions/commentActions';
-
+      } from '../actions/types';
 
 const initialCommentsState = {}
 
@@ -12,12 +11,9 @@ const initialCommentsState = {}
 const commentReducer = (state = initialCommentsState, action) => {
   switch(action.type) {
     case RECEIVE_COMMENTS_BY_POSTID :
-
         return  {...state,comments:action.comments}
     case RECEIVE_COMMENTS_AFTER_UPDATE:
-
         const index = state.comments.findIndex(comment => comment.id === action.comment.id)
-
         return {
           ...state,
           comments:[...state.comments.slice(0,index),
@@ -27,7 +23,6 @@ const commentReducer = (state = initialCommentsState, action) => {
           },...state.comments.slice(index+1)]
         }
     case RECEIVE_COMMENTS_AFTER_NEW:
-
         return {
           ...state,comments:[...state.comments,action.comment]
         }

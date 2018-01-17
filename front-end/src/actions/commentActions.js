@@ -1,27 +1,22 @@
 
 import * as CommentAPI from '../utils/commentAPI';
-
-export const RECEIVE_COMMENTS_BY_POSTID = "RECEIVE_COMMENTS_BY_POSTID"
-
-export const RECEIVE_COMMENTS_AFTER_NEW = "RECEIVE_COMMENTS_AFTER_NEW";
-
-export const RECEIVE_COMMENTS_AFTER_UPDATE = "RECEIVE_COMMENTS_AFTER_UPDATE";
-
-export const RECEIVE_VOTE = "RECEIVE_VOTE";
-
-export const RECEIVE_COMMENT_AFTER_DELETE = "RECEIVE_COMMENT_AFTER_DELETE";
-
-
+import { RECEIVE_COMMENTS_BY_POSTID,
+        RECEIVE_COMMENTS_AFTER_NEW,
+        RECEIVE_COMMENTS_AFTER_UPDATE,
+        RECEIVE_VOTE,
+        RECEIVE_COMMENT_AFTER_DELETE
+      } from './types';
 export const receiveComments= (comments) => (
   {
     type:RECEIVE_COMMENTS_BY_POSTID,
     comments:comments
   }
 )
-export const receiveCommentsAfterNew= (comment) => (
+export const receiveCommentsAfterNew= (comment,postId) => (
   {
     type:RECEIVE_COMMENTS_AFTER_NEW,
-    comment:comment
+    comment:comment,
+    postId:postId
   }
 )
 
@@ -39,10 +34,11 @@ export const receiveVote= (comment) => (
   }
 )
 
-export const receiveCommentAfterDelete= (comment) => (
+export const receiveCommentAfterDelete= (comment,postId) => (
   {
     type:RECEIVE_COMMENT_AFTER_DELETE,
-    comment:comment
+    comment:comment,
+    postId:postId
   }
 )
 
@@ -60,12 +56,14 @@ export const submitNewComment = (postId,commentText,commentId) => (dispatch) => 
     .updateComment(postId,commentText,commentId)
     .then((comment) => {
        dispatch(receiveCommentsAfterUpdate(comment))
+
      })
   }else{
     return CommentAPI
     .submitNewComment(postId,commentText)
     .then((comment) => {
-       dispatch(receiveCommentsAfterNew(comment))
+
+       dispatch(receiveCommentsAfterNew(comment,postId))
      })
   }
 
@@ -79,10 +77,10 @@ export const voteComment = (commentId,voteType) => (dispatch) => {
    })
 }
 
-export const deleteComment = (commentId) => (dispatch) => {
+export const deleteComment = (commentId,postId) => (dispatch) => {
   return CommentAPI
   .deleteComment(commentId)
   .then((comment) => {
-     dispatch(receiveCommentAfterDelete(comment))
+     dispatch(receiveCommentAfterDelete(comment,postId))
    })
 }

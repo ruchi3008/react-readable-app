@@ -1,22 +1,19 @@
-# Readable API Server
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+##Project overview
+Project code comprises of the src folder-structure.
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+src/actions
+-Contains separate action files for comment post and category realted actions.
 
-## Start Developing
+src/components
+-Contains all the components relate to the Project
 
-To get started developing right away:
+src/reducers
+-Contains separate reducer files for comment, post and category.
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+src/utils
+-Contains separate files for post, comment and category related api functionalities.
 
-## API Server
-
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+configureStore.js
+-File containing the store configuration. Store is created using a combined reducer and thunk middleware.

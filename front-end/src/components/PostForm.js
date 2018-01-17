@@ -1,21 +1,18 @@
 import React,{Component} from 'react';
-import ReactDOM from 'react';
 import {submitPost} from '../actions/postActions';
 import {connect} from 'react-redux';
-import {FormGroup,Form,FormControl,Col,ControlLabel,Button,DropdownButton,InputGroup,MenuItem} from 'react-bootstrap';
+import {FormGroup,Form,FormControl,Col,ControlLabel,Button} from 'react-bootstrap';
+import * as postActions from '../actions/postActions';
 class PostForm extends Component{
    state = {
      messagetext:''
    }
   submitPost = () => {
-
-
     if(this.props.mode!==undefined && this.props.mode==='Update'){
-
-      this.props.submitPost(this.title.value,this.text.value,this.props.post.category,this.props.post.id);
-      this.setState({
-        messagetext:'Post Updated'
-      })
+        this.props.submitPost(this.title.value,this.text.value,this.props.post.category,this.props.post.id);
+        this.setState({
+          messagetext:'Post Updated'
+        })
     }else
     {
       if(this.props.category!=null || this.props.category!==undefined){
@@ -33,6 +30,7 @@ class PostForm extends Component{
     }
   }
   render(){
+    let {post,category,mode,categories} = this.props
     return(
       <div>
         <Form horizontal>
@@ -46,7 +44,7 @@ class PostForm extends Component{
       				Title
       			</Col>
       			<Col sm={10}>
-      				<FormControl inputRef={node => this.title = node} type="text" defaultValue={this.props&&this.props.post&&this.props.post.title} />
+      				<FormControl inputRef={node => this.title = node} type="text" defaultValue={post && post.title} />
       			</Col>
       		</FormGroup>
 
@@ -55,17 +53,17 @@ class PostForm extends Component{
       				Body
       			</Col>
       			<Col sm={10}>
-      				<FormControl inputRef={node => this.text = node} type="text" defaultValue={this.props&&this.props.post&&this.props.post.body} />
+      				<FormControl inputRef={node => this.text = node} type="text" defaultValue={post && post.body} />
       			</Col>
       		</FormGroup>
-          {(this.props.category===undefined && this.props.mode==="Submit") &&
+          {(category===undefined && mode==="Submit") &&
           <FormGroup controlId="postCategory">
       			<Col componentClass={ControlLabel} sm={2}>
       				Category
       			</Col>
       			<Col sm={10}>
                 <FormControl inputRef={select => { this.category = select }} componentClass="select" disabled={this.state.added}>
-                         {this.props.categories.map((category)=>(<option key={category.name} value={category.name}>{category.name}</option>))}
+                         {categories.map((category)=>(<option key={category.name} value={category.name}>{category.name}</option>))}
                 </FormControl>
       			</Col>
       		</FormGroup>
@@ -73,7 +71,7 @@ class PostForm extends Component{
           <FormGroup>
     			<Col smOffset={2} sm={10}>
             <div className="text-right">
-    				<Button bsStyle="primary" onClick={()=>{this.submitPost()}}>{this.props.mode}</Button>
+    				<Button bsStyle="primary" onClick={()=>{this.submitPost()}}>{mode}</Button>
             </div>
     			</Col>
     		  </FormGroup>
@@ -88,9 +86,5 @@ const mapStateToProps = (state,props) => {
     categories:state.categoryReducer.categories
   }
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    submitPost :(postTitle,postText,postCategory,postId) => dispatch(submitPost(postTitle,postText,postCategory,postId))
-  }
-};
-export default connect(mapStateToProps,mapDispatchToProps)(PostForm);
+
+export default connect(mapStateToProps,postActions)(PostForm);

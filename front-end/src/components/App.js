@@ -10,7 +10,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={HomePage}/>
           <Route name="category" path="/category/:categoryName" component={CategoryDetail}/>
-          <Route path="/postDetails/:postId" component={PostDetails}/>
+          <Route path="/postDetails/:postCategory/:postId" component={PostDetails}/>
         </Switch>
         <div>
         </div>

@@ -84,8 +84,8 @@ class PostDetails extends Component{
     })
   }
 
-  deleteComment = (commentId) => {
-    this.props.deleteComment(commentId);
+  deleteComment = (commentId,postId) => {
+    this.props.deleteComment(commentId,postId);
     this.setState({
       modal:false,
       mode:'Submit',
@@ -105,89 +105,93 @@ class PostDetails extends Component{
   }
 
   render(){
+    let toRender = true;
+    if(this.props.post!==undefined)
+    if(Object.keys(this.props.post).length === 0 && this.props.post.constructor === Object)
+      toRender=false;
 
     return (
       <div className="container">
-      <PageHeader>
+        <PageHeader>
         <Link to={`/`} >Readable App</Link>
-     </PageHeader>
-        {this.props && this.props.post &&
+        </PageHeader>
+        {toRender && this.props && this.props.post &&
           <div>
-          <div><Panel className="primary">
-          <Panel.Heading>
-          <Panel.Title componentClass="h3">{this.props.post.title} by {this.props.post.author}</Panel.Title>
-          </Panel.Heading>
-		        <Panel.Body>
-              <div>
-                <div>{this.props.post.body}</div>
-                <div>
-                  <Moment format="DD-MMM-YYYY HH:mm A">{this.props.post.timestamp}</Moment>
-
-                </div>
-                <div>Votes : {this.props.post.voteScore}</div>
-                <div>Total Number of Comments : <Badge>{this.props.comments && this.props.comments.length}</Badge></div>
-              </div>
-              <div>
-                <ButtonToolbar>
-                  <ButtonGroup>
-                    <Button bsStyle="primary" onClick={()=>this.openPostModal(this.props.post)}>Edit</Button>
-                  </ButtonGroup>
-                  <ButtonGroup>
-                  <Button bsStyle="primary" onClick={()=>this.votePost(this.props.post.id,'upVote')}><Glyphicon glyph="thumbs-up" /></Button>
-                  <Button bsStyle="primary" onClick={()=>this.votePost(this.props.post.id,'downVote')}><Glyphicon glyph="thumbs-down" /></Button>
-                  </ButtonGroup>
-                  <ButtonGroup>
-                    <Button bsStyle="primary" onClick={()=>this.deletePost(this.props.post.id)}>Delete</Button>
-                  </ButtonGroup>
-                </ButtonToolbar>
-              </div>
+            <div>
+              <Panel className="primary">
+                <Panel.Heading>
+                  <Panel.Title componentClass="h3">
+                    {this.props.post.title} by {this.props.post.author}
+                  </Panel.Title>
+                </Panel.Heading>
+    		        <Panel.Body>
+                  <div>
+                    <div>{this.props.post.body}</div>
+                    <div>
+                      <Moment format="DD-MMM-YYYY HH:mm A">{this.props.post.timestamp}</Moment>
+                    </div>
+                    <div>Votes : {this.props.post.voteScore}</div>
+                    <div>Total Number of Comments : <Badge>{this.props.comments && this.props.comments.length}</Badge></div>
+                  </div>
+                  <div>
+                    <ButtonToolbar>
+                      <ButtonGroup>
+                        <Button bsStyle="primary" onClick={()=>this.openPostModal(this.props.post)}>Edit</Button>
+                      </ButtonGroup>
+                      <ButtonGroup>
+                      <Button bsStyle="primary" onClick={()=>this.votePost(this.props.post.id,'upVote')}><Glyphicon glyph="thumbs-up" /></Button>
+                      <Button bsStyle="primary" onClick={()=>this.votePost(this.props.post.id,'downVote')}><Glyphicon glyph="thumbs-down" /></Button>
+                      </ButtonGroup>
+                      <ButtonGroup>
+                        <Button bsStyle="primary" onClick={()=>this.deletePost(this.props.post.id)}>Delete</Button>
+                      </ButtonGroup>
+                    </ButtonToolbar>
+                  </div>
                 </Panel.Body>
-              <div>
-
-              <ListGroup>
-              {
-                this.props && this.props.comments && this.props.comments.map((comment)=>(
-                  <ListGroupItem header={<div><b>{comment.author}</b> says {comment.body}</div>}>
-
-                  <div>
-                  <Moment format="DD-MMM-YYYY HH:mm A">{comment.timestamp}</Moment>
-                  </div>
-                  <div>
-                  Votes: {comment.voteScore}
-                  </div>
-                  <div>
-                  <ButtonToolbar>
-                  		<ButtonGroup>
-                  			<Button bsStyle="primary" onClick={()=>this.openCommentModal('Update',comment)}>Edit</Button>
-                      </ButtonGroup>
-                      <ButtonGroup>
-                        <Button  bsStyle="primary" onClick={()=>this.voteComment(comment.id,'upVote')}><Glyphicon glyph="thumbs-up" /></Button>
-                          <Button  bsStyle="primary" onClick={()=>this.voteComment(comment.id,'downVote')}><Glyphicon glyph="thumbs-down" /></Button>
-                      </ButtonGroup>
-                      <ButtonGroup>
-                  			<Button  bsStyle="primary" onClick={()=>this.deleteComment(comment.id)}>Delete</Button>
-                      </ButtonGroup>
-                  </ButtonToolbar>
-
-                  </div>
-                  </ListGroupItem>
-                ))
-              }
-              </ListGroup>
-              </div>
-              <Panel.Footer><Button bsStyle="primary" onClick={()=>this.openCommentModal('Submit')}>Add Comment</Button></Panel.Footer>
-
-
-
-	           </Panel>
-          </div>
-          <div>
-
-          </div>
+                <div>
+                    <ListGroup>
+                    {
+                      this.props && this.props.comments && this.props.comments.map((comment)=>(
+                        <ListGroupItem key={comment.id} header={<div><b>{comment.author}</b> says {comment.body}</div>}>
+                          <div>
+                            <Moment format="DD-MMM-YYYY HH:mm A">{comment.timestamp}</Moment>
+                          </div>
+                          <div>
+                            Votes: {comment.voteScore}
+                          </div>
+                          <div>
+                            <ButtonToolbar>
+                            		<ButtonGroup>
+                            			<Button bsStyle="primary" onClick={()=>this.openCommentModal('Update',comment)}>Edit</Button>
+                                </ButtonGroup>
+                                <ButtonGroup>
+                                  <Button  bsStyle="primary" onClick={()=>this.voteComment(comment.id,'upVote')}><Glyphicon glyph="thumbs-up" /></Button>
+                                  <Button  bsStyle="primary" onClick={()=>this.voteComment(comment.id,'downVote')}><Glyphicon glyph="thumbs-down" /></Button>
+                                </ButtonGroup>
+                                <ButtonGroup>
+                            			<Button  bsStyle="primary" onClick={()=>this.deleteComment(comment.id,this.props.post.id)}>Delete</Button>
+                                </ButtonGroup>
+                            </ButtonToolbar>
+                          </div>
+                        </ListGroupItem>
+                      ))
+                    }
+                    </ListGroup>
+                </div>
+                <Panel.Footer>
+                    <Button bsStyle="primary" onClick={()=>this.openCommentModal('Submit')}>Add Comment</Button>
+                </Panel.Footer>
+              </Panel>
+            </div>
           </div>
         }
-
-                <Modal show={this.state.modal} onHide={this.closeCommentModal}>
+        {
+          !toRender &&
+          <div>
+          <h3>Sorry..post is not available!!</h3>
+          </div>
+        }
+        <Modal show={this.state.modal} onHide={this.closeCommentModal}>
                   <Modal.Header closeButton>
                     <Modal.Title>Add a Comment</Modal.Title>
                   </Modal.Header>
@@ -219,10 +223,8 @@ class PostDetails extends Component{
                   <Modal.Footer>
                     <Button onClick={this.closeCommentModal}>Close</Button>
                   </Modal.Footer>
-                  </Modal>
-
-
-                <Modal show={this.state.postModal} onHide={this.closePostModal}>
+        </Modal>
+        <Modal show={this.state.postModal} onHide={this.closePostModal}>
                     <Modal.Header closeButton>
                         <Modal.Title>Edit Post</Modal.Title>
                     </Modal.Header>
@@ -232,11 +234,11 @@ class PostDetails extends Component{
                     <Modal.Footer>
                         <Button onClick={this.closePostModal}>Close</Button>
                     </Modal.Footer>
-                </Modal>
-
+        </Modal>
       </div>
 
     )
+
   }
 }
 
@@ -244,7 +246,7 @@ const mapStateToProps = (state,props) => {
 
   return {
     post:state.postReducer.postDetails,
-    comments:state.commentReducer.comments
+    comments:state.postReducer.comments
   }
 };
 
@@ -254,7 +256,7 @@ const mapDispatchToProps = (dispatch) => {
     fetchComments :(id) => dispatch(fetchComments(id)),
     submitNewComment :(postId,commentText,commentId) => dispatch(submitNewComment(postId,commentText,commentId)),
     voteComment :(commentId,voteType) => dispatch(voteComment(commentId,voteType)),
-    deleteComment:(commentId) => dispatch(deleteComment(commentId)),
+    deleteComment:(commentId,postId) => dispatch(deleteComment(commentId,postId)),
     votePost:(postId,voteType) => dispatch(votePost(postId,voteType)),
     deletePost:(postId)=> dispatch(deletePost(postId))
   }

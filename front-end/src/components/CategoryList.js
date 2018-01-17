@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 class CategoryList extends Component {
 
   render(){
+     let {categories}= this.props
     return (
       <div>
       <div className="page-header">
@@ -11,7 +12,7 @@ class CategoryList extends Component {
       </div>
       <ul className="list-inline">
         {
-          this.props && this.props.categories && this.props.categories.map((category)=>(
+          categories && categories.map((category)=>(
             <li key={category.name}>
               <Link to={`/category/${category.name}`} >{category.name}</Link>
             </li>
@@ -28,6 +29,7 @@ const mapStateToProps = (state,props) => {
     categories:state.categoryReducer.categories
   }
 };
+
 
 
 export default connect(mapStateToProps)(CategoryList);

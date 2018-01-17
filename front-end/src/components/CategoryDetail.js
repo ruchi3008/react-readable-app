@@ -6,15 +6,16 @@ import {PageHeader} from 'react-bootstrap';
 class CategoryDetail extends Component {
 
   render(){
+     let {posts,match} = this.props
     return (
       <div className="container">
       <PageHeader>
         <Link to={`/`} >Readable App</Link>
       </PageHeader>
       <div className="page-header">
-      <h3> Posts on {this.props.match.params.categoryName}</h3>
+      <h3> Posts on {match.params.categoryName}</h3>
       </div>
-      <PostList posts={this.props.posts && this.props.posts.filter((post) => post.category === this.props.match.params.categoryName)} category={this.props.match.params.categoryName}/>
+      <PostList posts={posts && posts.filter((post) => post.category === match.params.categoryName)} category={this.props.match.params.categoryName}/>
       </div>
     )
   }

@@ -1,6 +1,5 @@
 import * as CategoriesAPI from '../utils/categoryAPI';
-
-export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+import { RECEIVE_CATEGORIES } from './types';
 
 export const receiveCategories = (categories) => (
   {
