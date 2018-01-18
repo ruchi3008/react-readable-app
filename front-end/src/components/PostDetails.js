@@ -109,7 +109,6 @@ class PostDetails extends Component{
     if(this.props.post!==undefined)
     if(Object.keys(this.props.post).length === 0 && this.props.post.constructor === Object)
       toRender=false;
-
     return (
       <div className="container">
         <PageHeader>

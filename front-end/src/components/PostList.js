@@ -48,7 +48,7 @@ class PostList extends Component {
           <Panel key={post.id} className="primary">
             <Panel.Heading>
               <Panel.Title componentClass="h3">
-                <Link to={`/postDetails/${post.category}/${post.id}`}>{post.title} by {post.author}({post.category})</Link>
+                <Link to={`/${post.category}/${post.id}`}>{post.title} by {post.author}({post.category})</Link>
               </Panel.Title>
             </Panel.Heading>
             <Panel.Body>
